@@ -2,11 +2,15 @@ const { Pool } = require('pg');
 require('dotenv').config();
 
 const pool = new Pool({
-    user: process.env.USER,
-    host: process.env.HOST,
-    database: process.env.DB,
-    password: process.env.PASSWORD,
-    port: process.env.PORT,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false,
+    },
 });
+
+pool.connect()
+    .then(() => console.log('Connected to Heroku Postgres!'))
+    .catch(err => console.error('Connection error', err.stack));
+
 
 module.exports = pool;
