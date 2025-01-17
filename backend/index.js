@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const businessRoutes = require('./routes/business');
-const usersRoutes = require('./routes/users')
+const usersRoutes = require('./routes/users');
+const addressRoutes = require('./routes/address');
 require('dotenv').config();
 
 const app = express();
@@ -13,10 +14,11 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Estia Project API!');
-});
+}); //testing
 
 app.use('/api/v1/business', businessRoutes);
 app.use('/api/v1/users', usersRoutes);
+app.use('/api/v1/address', addressRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
