@@ -3,6 +3,8 @@ const cors = require('cors');
 const businessRoutes = require('./routes/business');
 const usersRoutes = require('./routes/users');
 const addressRoutes = require('./routes/address');
+const authRoutes = require('./routes/auth');
+
 require('dotenv').config();
 
 const app = express();
@@ -32,6 +34,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/business', businessRoutes);
 app.use('/api/v1/users', usersRoutes);
 app.use('/api/v1/address', addressRoutes)
+app.use('/api/v1/auth', authRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
