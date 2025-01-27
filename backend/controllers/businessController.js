@@ -112,9 +112,41 @@ const getBusinessWithFeatures = async (req, res) => {
     }
 }
 
+const getBusinessWithReviews = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const query = `
+        SELECT
+                b.id AS business_id, 
+                b.name AS business_name, 
+                b.rating, 
+                a.id AS reviews_id, 
+                a.user_comment,
+                a.rating,
+                a.created_at
+            FROM Business b
+            LEFT JOIN reviews a ON b.id = a.id_business
+            WHERE b.id = $1;
+        `;
+
+        const result = await pool.query(query, [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Business not found' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Error fetching business with reviews:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     getBusiness,
     getBusinessById,
     getBusinessWithAddress,
-    getBusinessWithFeatures
+    getBusinessWithFeatures,
+    getBusinessWithReviews
 };
