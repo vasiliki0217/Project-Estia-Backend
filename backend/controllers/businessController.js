@@ -60,8 +60,61 @@ const getBusinessWithAddress = async (req, res) => {
     }
 };
 
+const getBusinessWithFeatures = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const query = `
+        SELECT
+                b.id AS business_id, 
+                b.name AS business_name, 
+                b.description, 
+                b.rating, 
+                b.created_at, 
+                b.updated_at, 
+                a.id AS features_id, 
+                a.category, 
+                a.breakfast, 
+                a.brunch, 
+                a.lunch, 
+                a.dinner, 
+                a.snacks, 
+                a.ice_cream,
+                a.coffee,
+                a.birthday_events,
+                a.animateur,
+                a.indoor_playground,
+                a.outdoor_playground,
+                a.wheelchair_access,
+                a.pets_allowed,
+                a.parking_space,
+                a.opening_hours,
+                a.stroller_friendly,
+                a.parking_space,
+                a.free_entrance,
+                a.contact_number,
+                a.contact_email
+            FROM Business b
+            LEFT JOIN Business_features a ON b.id = a.id_business
+            WHERE b.id = $1;
+        `;
+
+        const result = await pool.query(query, [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ error: 'Business not found' });
+        }
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Error fetching business with features:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     getBusiness,
     getBusinessById,
-    getBusinessWithAddress
+    getBusinessWithAddress,
+    getBusinessWithFeatures
 };
