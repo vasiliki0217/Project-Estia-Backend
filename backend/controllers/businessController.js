@@ -120,10 +120,10 @@ const getBusinessWithReviews = async (req, res) => {
         SELECT
                 b.id AS business_id, 
                 b.name AS business_name, 
-                b.rating, 
+                b.rating AS business_rating, 
                 a.id AS reviews_id, 
                 a.user_comment,
-                a.rating,
+                a.rating AS user_rating,
                 a.created_at
             FROM Business b
             LEFT JOIN reviews a ON b.id = a.id_business
