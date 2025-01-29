@@ -24,6 +24,7 @@ const getUserById = async (req, res) => {
 
 const addReview = async (req, res) => {
     const { user_comment, rating } = req.body;
+    const { id_users, id_business } = req.params;
 
     //if user is loggedin(to do)
     if (!user_comment || !rating) {
