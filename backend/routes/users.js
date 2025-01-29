@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getUsers, getUserById } = require('../controllers/usersController');
+const { getUsers, getUserById, addReview } = require('../controllers/usersController');
 
-router.get('/', getUsers);
-router.get('/:id', getUserById);
-// router.post('/reviews', addReview);
-// router.delete('/review/:id', deleteReview)
+router.get('/', getUsers); //testing
+router.get('/:id', getUserById); //testing
+router.post('/:user_id/add_review/:business_id', addReview);
+// router.delete('/review', deleteReview) (to do)
 
 module.exports = router;
