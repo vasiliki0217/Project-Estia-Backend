@@ -32,7 +32,7 @@ const addReview = async (req, res) => {
     try {
         const result = await pool.query(
             'INSERT INTO reviews (user_comment,rating, id_users, id_business) VALUES ($1, $2, $3, $4) RETURNING *',
-            [user_comment, rating, user_id, business_id]
+            [user_comment, rating, id_users, id_business]
         );
 
         res.status(201).json({

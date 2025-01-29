@@ -4,7 +4,7 @@ const { getUsers, getUserById, addReview } = require('../controllers/usersContro
 
 router.get('/', getUsers); //testing
 router.get('/:id', getUserById); //testing
-router.post('/:user_id/add_review/:business_id', addReview);
+router.post('/:id_users/add_review/:id_business', addReview);
 // router.delete('/review', deleteReview) (to do)
 
 module.exports = router;
