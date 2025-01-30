@@ -1,6 +1,7 @@
 # Estia Project - Backend
 This repository contains the backend code for the Estia Project, which provides an API for managing businesses, addresses, users, and reviews.  
-Estia is an application that provides info about kid-friendly businesses. For the frontend part you can visit the [Project-Estia](https://github.com/Evangelia93/Project-Estia) .
+Estia is an application that helps families find child-friendly spots like cafes, restaurants, activity centers, etc.  
+For the frontend part you can visit the [Project-Estia](https://github.com/Evangelia93/Project-Estia) .
 
 ## 📌 Project Overview
 * The backend is built using **Node.js** and **Express**.
