@@ -1,5 +1,6 @@
 # Estia Project - Backend
-This repository contains the backend code for the Estia Project, which provides an API for managing businesses, addresses, users, and reviews.
+This repository contains the backend code for the Estia Project, which provides an API for managing businesses, addresses, users, and reviews.  
+Estia is an application that provides info about kid-friendly businesses. For the frontend part you can visit the [Project-Estia](https://github.com/Evangelia93/Project-Estia) .
 
 ## 📌 Project Overview
 * The backend is built using **Node.js** and **Express**.
@@ -47,7 +48,7 @@ This repository contains the backend code for the Estia Project, which provides 
 
 Below is the database schema that represents the relationships between different entities in the project.
 
-![Database Schema]
+![Database Schema](https://github.com/vasiliki0217/Project-Estia-Backend/blob/main/db-schema.png)
 
 ### 📋 Explanation of Schema:
 - **Business**: Stores details of all businesses.
@@ -120,5 +121,5 @@ These are features planned for future implementation:
 ## 🤖 Contributors
    Name | GitHub Profile | Contributions |
 |------|--------------|--------------|
-| **Vasiliki Korai** | https://github.com/vasiliki0217 | Architected and Developed Backend, API, DB Schema & Authentication |
+| **Vasiliki Korai** | https://github.com/vasiliki0217 | Architected and Developed Backend, API, DB Schema, DB Creation & Authentication |
 
