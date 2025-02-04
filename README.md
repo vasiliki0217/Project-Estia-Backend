@@ -86,12 +86,26 @@ Below is the database schema that represents the relationships between different
 | GET | `/api/v1/business/{id}/business_reviews` | Fetch business details with reviews |
 | POST | `/api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}` | uploads a picture to a business |
 
+
 ### Addresses
 
 | Method | Endpoint | Description |
 |--------|---------|-------------|
 | GET | `/api/v1/address/` | Fetch all addresses (for testing) |
 | GET | `/api/v1/address/{id}` | Fetch address details by ID (for testing) |
+
+
+### API Description
+
+#### Upload a picture to a business
+
+Method: POST
+Endpoint: /api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}
+Parameters: using req query
+    - idBusiness - is a number and represents the id of the business for which you are adding a picture. This must be a valid id business
+    - isPrimary - represents if the picture that is uploading is or not the primary picture for the business. This can have one of two values:  1 - is primary; 0 - is not primary.
+                  This is optional. If it is omited the value will be 0.
+
 
 ---
 
