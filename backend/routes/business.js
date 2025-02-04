@@ -8,6 +8,7 @@ const {
   getBusinessWithFeatures,
   getBusinessWithReviews,
   uploadImageToBusiness,
+  addBusiness,
 } = require("../controllers/businessController");
 
 const storage = multer.diskStorage({});
@@ -23,5 +24,6 @@ router.post(
   upload.single("picture"),
   uploadImageToBusiness
 );
+router.post("/add/new", addBusiness);
 
 module.exports = router;

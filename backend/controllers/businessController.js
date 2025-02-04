@@ -228,6 +228,85 @@ const uploadImageToBusiness = async (req, res) => {
   }
 };
 
+const addBusiness = async (req, res) => {
+  const {
+    name,
+    description,
+    country,
+    city,
+    streetName,
+    streetNbr,
+    postalCode,
+  } = req.body;
+
+  let errors = [];
+
+  if (!name) {
+    errors.push("No name provided");
+  }
+
+  if (!description) {
+    errors.push("No description provided");
+  }
+  if (!country) {
+    errors.push("No country provided");
+  }
+
+  if (!city) {
+    errors.push("No city provided");
+  }
+
+  if (!streetName) {
+    errors.push("No streetName provided");
+  }
+
+  if (!streetNbr) {
+    errors.push("No streetNbr provided");
+  }
+
+  if (!postalCode) {
+    errors.push("No postalCode provided");
+  }
+
+  if (errors.length > 0) {
+    res.status(500).json(errors);
+  } else {
+    // insert the address
+    try {
+      const result = await pool.query(
+        "insert into address (road_name, number, postal_code, city, country, latitude, longitude) values ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
+        [streetName, streetNbr, postalCode, city, country, 50.8503, 4.3517],
+        async (error, result) => {
+          if (error) {
+            res.status(500).json(error);
+          } else {
+            const idAddress = result.rows[0].id;
+
+            /// writting the business
+            try {
+              const result = await pool.query(
+                "insert into business (name, description, created_at, id_address) values ($1, $2, $3, $4) ",
+                [name, description, new Date().toLocaleDateString(), idAddress],
+                (error, result) => {
+                  if (error) {
+                    res.status(500).json(error);
+                  } else {
+                    res.status(200).json("Succes");
+                  }
+                }
+              );
+            } catch (err) {
+              res.status(500).json(error);
+            }
+          }
+        }
+      );
+    } catch (err) {
+      res.status(500).json("Error writing the address", err);
+    }
+  }
+};
+
 module.exports = {
   getBusiness,
   getBusinessById,
@@ -235,4 +314,5 @@ module.exports = {
   getBusinessWithFeatures,
   getBusinessWithReviews,
   uploadImageToBusiness,
+  addBusiness,
 };
