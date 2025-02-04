@@ -84,6 +84,7 @@ Below is the database schema that represents the relationships between different
 | GET | `/api/v1/business/{id}/address_details` | Fetch business details with address |
 | GET | `/api/v1/business/{id}/business_features` | Fetch business details with features |
 | GET | `/api/v1/business/{id}/business_reviews` | Fetch business details with reviews |
+| POST | `/api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}` | uploads a picture to a business |
 
 ### Addresses
 
