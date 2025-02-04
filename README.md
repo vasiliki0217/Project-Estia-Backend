@@ -131,6 +131,8 @@ Below is the database schema that represents the relationships between different
 
   for the latitude, longitude the API will insert the default values 50.8503, 4.3517
 
+  ![alt text](image.png)
+
 ## 🚀 Future Goals
 
 These are features planned for future implementation:
