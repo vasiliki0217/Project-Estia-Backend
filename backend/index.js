@@ -8,7 +8,7 @@ const authRoutes = require("./routes/auth");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 // const allowedOrigins = [
 //     'http://localhost:3000',
 //     '--frontend url--'
