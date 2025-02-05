@@ -1,3 +1,4 @@
+const { error } = require("console");
 const pool = require("../db");
 const path = require("path");
 const cloudinary = require("cloudinary").v2;
@@ -307,6 +308,78 @@ const addBusiness = async (req, res) => {
   }
 };
 
+const updateBusiness = async (req, res) => {
+  const { idBusiness } = req.params;
+
+  // Log the incoming business ID for debugging
+  console.log("Updating Business ID:", idBusiness);
+
+  // Extract request body values
+  const {
+    name,
+    description,
+    country,
+    city,
+    streetName,
+    streetNbr,
+    postalCode,
+  } = req.body;
+
+  // Validate required fields
+  const errors = [];
+
+  if (!name) errors.push("No name provided");
+  if (!description) errors.push("No description provided");
+  if (!country) errors.push("No country provided");
+  if (!city) errors.push("No city provided");
+  if (!streetName) errors.push("No streetName provided");
+  if (!streetNbr) errors.push("No streetNbr provided");
+  if (!postalCode) errors.push("No postalCode provided");
+  if (!idBusiness) errors.push("No idBusiness provided!");
+
+  let idAddress;
+
+  if (errors.length > 0) {
+    return res.status(400).json({ errors });
+  }
+
+  try {
+    // Verify if the business exists
+    const result = await pool.query("SELECT * FROM Business WHERE id = $1", [
+      idBusiness,
+    ]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        error: `Business with id = ${idBusiness} not found in database!`,
+      });
+    }
+
+    idAddress = result.rows[0].idaddress;
+
+    // Use transactions
+    await pool.query("BEGIN");
+
+    await pool.query(
+      "UPDATE business SET name = $1, description = $2, updated_at = $3 WHERE id = $4",
+      [name, description, new Date().toISOString(), idBusiness]
+    );
+
+    await pool.query(
+      "UPDATE address SET road_name = $1, number = $2, postal_code = $3, city = $4, country = $5 WHERE id = $6",
+      [streetName, streetNbr, postalCode, city, country, idAddress]
+    );
+
+    await pool.query("COMMIT");
+
+    res.status(200).json({ message: "Business updated successfully" });
+  } catch (err) {
+    await pool.query("ROLLBACK");
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+};
+
 module.exports = {
   getBusiness,
   getBusinessById,
@@ -315,4 +388,5 @@ module.exports = {
   getBusinessWithReviews,
   uploadImageToBusiness,
   addBusiness,
+  updateBusiness,
 };
