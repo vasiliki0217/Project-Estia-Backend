@@ -96,6 +96,7 @@ Below is the database schema that represents the relationships between different
 | GET    | `/api/v1/business/{id}/business_reviews`                          | Fetch business details with reviews  |
 | POST   | `/api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}` | uploads a picture to a business      |
 | POST   | `/api/v1/business/add/new`                                        | add a new business with address      |
+| PUT    | `/api/v1/business/update/{idBusiness}`                            | update a business                    |
 
 ### Addresses
 
@@ -132,6 +133,23 @@ Below is the database schema that represents the relationships between different
   for the latitude, longitude the API will insert the default values 50.8503, 4.3517
 
   ![alt text](image.png)
+
+  #### Update business
+
+  - Method: PUT
+  - Endpoint: /api/v1/business/update/{idBusiness}
+
+  - Parameters:
+    - from req param:
+      - idBusiness - is a number and represents the id of the business that we update. This must be a valid id business
+    - from req body
+      - name - represents the name of the business. Is mandatory
+      - description - represents the description of the business. Is mandatory
+      - country - represents the contry of the business. Is mandatory
+      - city - represents the city of the business. Is mandatory
+      - streetName - represents the streetName of the business. Is mandatory
+      - streetNbr - represents the streetNbr of the business. Is mandatory
+      - postalCode - represents the streetNbr of the business. Is mandatory
 
 ## 🚀 Future Goals
 
