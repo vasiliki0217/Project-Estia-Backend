@@ -380,6 +380,52 @@ const updateBusiness = async (req, res) => {
   }
 };
 
+const getBusinessImages = async (req, res) => {
+  const { id } = req.params;
+  const { is_primary } = req.query;
+
+  let errors = [];
+
+  if (!id) {
+    errors.push("No id provided!");
+  } else {
+    try {
+      const result = await pool.query("SELECT * FROM Business WHERE id = $1", [
+        id,
+      ]);
+      if (result.rows.length === 0) {
+        errors.push(`Business with id = ${id} not found in database!`);
+      }
+    } catch (err) {
+      errors.push(err.message);
+    }
+  }
+
+  if (is_primary) {
+    if (is_primary !== "0" && is_primary !== "1") {
+      errors.push("Invalid value for is_primary! Must be 0 or 1!");
+    }
+  }
+
+  if (errors.length > 0) {
+    res.status(500).json(errors);
+  } else {
+    try {
+      const result = await pool.query(
+        "select * from images where id_business = $1 and (is_primary =$2 or $2 is null)",
+        [id, is_primary ?? null]
+      );
+      if (result.rows === 0) {
+        res.status(404).json("No images for this business!");
+      } else {
+        res.json(result.rows);
+      }
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  }
+};
+
 module.exports = {
   getBusiness,
   getBusinessById,
@@ -389,4 +435,5 @@ module.exports = {
   uploadImageToBusiness,
   addBusiness,
   updateBusiness,
+  getBusinessImages,
 };
