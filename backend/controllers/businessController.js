@@ -11,7 +11,9 @@ cloudinary.config({
 
 const getBusiness = async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM Business");
+    const result = await pool.query(
+      "select b.*, (select i.file_path from images as i where i.is_primary = 1 and i.id_business = b.id) as image_path from business as b"
+    );
     res.json(result.rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
