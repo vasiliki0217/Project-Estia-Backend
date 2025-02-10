@@ -156,7 +156,7 @@ Below is the database schema that represents the relationships between different
     #### Get the images for a business
 
     - Method: GET
-    - Endpoint : /api/v1/business/phoros/{id}/?is_primary={is_primary}
+    - Endpoint : /api/v1/business/photos/{id}/?is_primary={is_primary}
     - Parameters:
       - from req param:
         - id - is a number and represents the id of the business. This must be a valid id business
