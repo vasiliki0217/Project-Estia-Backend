@@ -8,9 +8,11 @@ const registerUser = async (req, res) => {
     return res.status(400).json({ error: "All fields are required" });
   }
 
+  console.log(username, email, password);
+
   try {
     const userExists = await pool.query(
-      "SELECT * FROM Users WHERE email = $1 or $2",
+      "SELECT * FROM Users WHERE email = $1 or username = $2",
       [email, username]
     );
 
