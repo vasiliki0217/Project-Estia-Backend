@@ -35,6 +35,39 @@ const getBusinessById = async (req, res) => {
   }
 };
 
+const getAllBusinessWithAddress = async (req, res) => {
+  try {
+    const query = `
+            SELECT 
+                b.id , 
+                b.name , 
+                b.description, 
+                b.rating, 
+                b.created_at, 
+                b.updated_at, 
+                b.id_address, 
+                a.road_name, 
+                a.number, 
+                a.postal_code, 
+                a.city, 
+                a.country, 
+                a.latitude, 
+                a.longitude,
+                (select i.file_path from images as i where i.is_primary = 1 and i.id_business = b.id) as image_path
+            FROM Business b
+            LEFT JOIN Address a ON b.id_Address = a.id
+            ;
+        `;
+
+    const result = await pool.query(query);
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error fetching business with address:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 const getBusinessWithAddress = async (req, res) => {
   const { id } = req.params;
 
@@ -54,7 +87,8 @@ const getBusinessWithAddress = async (req, res) => {
                 a.city, 
                 a.country, 
                 a.latitude, 
-                a.longitude
+                a.longitude,
+                (select i.file_path from images as i where i.is_primary = 1 and i.id_business = b.id) as image_path
             FROM Business b
             LEFT JOIN Address a ON b.id_Address = a.id
             WHERE b.id = $1;
@@ -443,4 +477,5 @@ module.exports = {
   addBusiness,
   updateBusiness,
   getBusinessImages,
+  getAllBusinessWithAddress,
 };

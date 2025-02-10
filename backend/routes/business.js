@@ -11,12 +11,14 @@ const {
   addBusiness,
   updateBusiness,
   getBusinessImages,
+  getAllBusinessWithAddress,
 } = require("../controllers/businessController");
 
 const storage = multer.diskStorage({});
 const upload = multer({ storage });
 
 router.get("/", getBusiness);
+router.get("/all", getAllBusinessWithAddress);
 router.get("/:id", getBusinessById);
 router.get("/:id/address_details", getBusinessWithAddress);
 router.get("/:id/business_features", getBusinessWithFeatures);
