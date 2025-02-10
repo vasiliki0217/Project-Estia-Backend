@@ -288,13 +288,16 @@ const addBusiness = async (req, res) => {
             /// writting the business
             try {
               const result = await pool.query(
-                "insert into business (name, description, created_at, id_address) values ($1, $2, $3, $4) ",
+                "insert into business (name, description, created_at, id_address) values ($1, $2, $3, $4)  RETURNING * ",
                 [name, description, new Date().toLocaleDateString(), idAddress],
                 (error, result) => {
                   if (error) {
                     res.status(500).json(error);
                   } else {
-                    res.status(200).json("Succes");
+                    res.status(200).json({
+                      message: "Business added successfully",
+                      data: result.rows[0],
+                    });
                   }
                 }
               );
