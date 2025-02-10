@@ -240,6 +240,8 @@ const addBusiness = async (req, res) => {
     streetName,
     streetNbr,
     postalCode,
+    latitude,
+    longitude,
   } = req.body;
 
   let errors = [];
@@ -278,7 +280,7 @@ const addBusiness = async (req, res) => {
     try {
       const result = await pool.query(
         "insert into address (road_name, number, postal_code, city, country, latitude, longitude) values ($1, $2, $3, $4, $5, $6, $7) RETURNING * ",
-        [streetName, streetNbr, postalCode, city, country, 50.8503, 4.3517],
+        [streetName, streetNbr, postalCode, city, country, latitude, longitude],
         async (error, result) => {
           if (error) {
             res.status(500).json(error);
