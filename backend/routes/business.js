@@ -10,6 +10,7 @@ const {
   uploadImageToBusiness,
   addBusiness,
   updateBusiness,
+  getBusinessImages,
 } = require("../controllers/businessController");
 
 const storage = multer.diskStorage({});
@@ -27,5 +28,6 @@ router.post(
 );
 router.post("/add/new", addBusiness);
 router.put("/update/:idBusiness", updateBusiness);
+router.get("/photos/:id", getBusinessImages);
 
 module.exports = router;

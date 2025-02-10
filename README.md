@@ -97,6 +97,7 @@ Below is the database schema that represents the relationships between different
 | POST   | `/api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}` | uploads a picture to a business      |
 | POST   | `/api/v1/business/add/new`                                        | add a new business with address      |
 | PUT    | `/api/v1/business/update/{idBusiness}`                            | update a business                    |
+| GET    | `/api/v1/business/phoros/{id}/?is_primary={is_primary}`           | get the images for a business        |
 
 ### Addresses
 
@@ -140,6 +141,7 @@ Below is the database schema that represents the relationships between different
   - Endpoint: /api/v1/business/update/{idBusiness}
 
   - Parameters:
+
     - from req param:
       - idBusiness - is a number and represents the id of the business that we update. This must be a valid id business
     - from req body
@@ -150,6 +152,16 @@ Below is the database schema that represents the relationships between different
       - streetName - represents the streetName of the business. Is mandatory
       - streetNbr - represents the streetNbr of the business. Is mandatory
       - postalCode - represents the streetNbr of the business. Is mandatory
+
+    #### Get the images for a business
+
+    - Method: GET
+    - Endpoint : /api/v1/business/photos/{id}/?is_primary={is_primary}
+    - Parameters:
+      - from req param:
+        - id - is a number and represents the id of the business. This must be a valid id business
+      - from req query:
+        - is_primary - must be 0 or 1; 1 - only the primary image, 0 - for non-primary images. If omited will fetch all images for a business
 
 ## 🚀 Future Goals
 
