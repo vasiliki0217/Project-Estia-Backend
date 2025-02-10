@@ -87,17 +87,18 @@ Below is the database schema that represents the relationships between different
 
 ### Businesses
 
-| Method | Endpoint                                                          | Description                          |
-| ------ | ----------------------------------------------------------------- | ------------------------------------ |
-| GET    | `/api/v1/business/`                                               | Fetch all businesses                 |
-| GET    | `/api/v1/business/{id}`                                           | Fetch business details by ID         |
-| GET    | `/api/v1/business/{id}/address_details`                           | Fetch business details with address  |
-| GET    | `/api/v1/business/{id}/business_features`                         | Fetch business details with features |
-| GET    | `/api/v1/business/{id}/business_reviews`                          | Fetch business details with reviews  |
-| POST   | `/api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}` | uploads a picture to a business      |
-| POST   | `/api/v1/business/add/new`                                        | add a new business with address      |
-| PUT    | `/api/v1/business/update/{idBusiness}`                            | update a business                    |
-| GET    | `/api/v1/business/phoros/{id}/?is_primary={is_primary}`           | get the images for a business        |
+| Method | Endpoint                                                          | Description                               |
+| ------ | ----------------------------------------------------------------- | ----------------------------------------- |
+| GET    | `/api/v1/business/`                                               | Fetch all businesses                      |
+| GET    | `/api/v1/business/{id}`                                           | Fetch business details by ID              |
+| GET    | `/api/v1/business/{id}/address_details`                           | Fetch business details with address       |
+| GET    | `/api/v1/business/{id}/business_features`                         | Fetch business details with features      |
+| GET    | `/api/v1/business/{id}/business_reviews`                          | Fetch business details with reviews       |
+| POST   | `/api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}` | uploads a picture to a business           |
+| POST   | `/api/v1/business/add/new`                                        | add a new business with address           |
+| PUT    | `/api/v1/business/update/{idBusiness}`                            | update a business                         |
+| GET    | `/api/v1/business/phoros/{id}/?is_primary={is_primary}`           | get the images for a business             |
+| GET    | `/api/v1/business/all`                                            | get all business with address and picture |
 
 ### Addresses
 
