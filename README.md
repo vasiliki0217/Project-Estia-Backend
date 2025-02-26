@@ -99,6 +99,10 @@ Below is the database schema that represents the relationships between different
 | PUT    | `/api/v1/business/update/{idBusiness}`                            | update a business                         |
 | GET    | `/api/v1/business/phoros/{id}/?is_primary={is_primary}`           | get the images for a business             |
 | GET    | `/api/v1/business/all`                                            | get all business with address and picture |
+| POST   | `/api/v1/business/add/new`                                        | Add a new business with address |
+| PUT    | `/api/v1/business/update/{idBusiness}`                            | Update business details |
+| POST   | `api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}`  |Upload a Picture to a Business |
+| GET    | `/api/v1/business/photos/{id}/?is_primary={is_primary}`           |Get the Images for a Business |
 
 ### Addresses
 
@@ -107,62 +111,49 @@ Below is the database schema that represents the relationships between different
 | GET    | `/api/v1/address/`     | Fetch all addresses (for testing)         |
 | GET    | `/api/v1/address/{id}` | Fetch address details by ID (for testing) |
 
-### API Description
+## Description of Endpoints created by [Adrian](https://github.com/rotiadi).
 
-#### Upload a picture to a business
+### 🖊 Upload a Picture to a Business
+- **Method**: `POST`
+- **Endpoint**: `/api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}`
+- **Parameters** (using `req.query`):
+  - `idBusiness` (required) - A number representing the business ID. Must be a valid business ID.
+  - `isPrimary` (optional) - Specifies if the uploaded picture is primary (`1`) or not (`0`). Defaults to `0` if omitted.
 
-- Method: POST
-- Endpoint: /api/v1/business/?idBusiness={idBusiness}&isPrimary={isPrimary}
-- Parameters: using req query
-  - idBusiness - is a number and represents the id of the business for which you are adding a picture. This must be a valid id business
-  - isPrimary - represents if the picture that is uploading is or not the primary picture for the business. This can have one of two values: 1 - is primary; 0 - is not primary.
-    This is optional. If it is omited the value will be 0.
+### 🏢 Add a New Business with Address
+- **Method**: `POST`
+- **Endpoint**: `/api/v1/business/add/new`
+- **Parameters** (using `req.body`):
+  - `name` (required) - Business name.
+  - `description` (required) - Business description.
+  - `country` (required) - Business country.
+  - `city` (required) - Business city.
+  - `streetName` (required) - Business street name.
+  - `streetNbr` (required) - Business street number.
+  - `postalCode` (required) - Business postal code.
 
-#### Add a new business with address
+For **latitude** and **longitude**, the API assigns **default values: `50.8503, 4.3517`**.
 
-- Method: POST
-- EndPoint: /api/v1/business/add/new
-- Parameters: using req body
-
-  - name - represents the name of the business. Is mandatory
-  - description - represents the description of the business. Is mandatory
-  - country - represents the contry of the business. Is mandatory
-  - city - represents the city of the business. Is mandatory
-  - streetName - represents the streetName of the business. Is mandatory
-  - streetNbr - represents the streetNbr of the business. Is mandatory
-  - postalCode - represents the streetNbr of the business. Is mandatory
-
-  for the latitude, longitude the API will insert the default values 50.8503, 4.3517
 
   ![alt text](image.png)
 
-  #### Update business
+  ### 🔄 Update Business
+- **Method**: `PUT`
+- **Endpoint**: `/api/v1/business/update/{idBusiness}`
+- **Parameters**:
+  - From `req.param`:
+    - `idBusiness` (required) - The ID of the business to update.
+  - From `req.body`:
+    - `name`, `description`, `country`, `city`, `streetName`, `streetNbr`, `postalCode` (all required fields).
 
-  - Method: PUT
-  - Endpoint: /api/v1/business/update/{idBusiness}
-
-  - Parameters:
-
-    - from req param:
-      - idBusiness - is a number and represents the id of the business that we update. This must be a valid id business
-    - from req body
-      - name - represents the name of the business. Is mandatory
-      - description - represents the description of the business. Is mandatory
-      - country - represents the contry of the business. Is mandatory
-      - city - represents the city of the business. Is mandatory
-      - streetName - represents the streetName of the business. Is mandatory
-      - streetNbr - represents the streetNbr of the business. Is mandatory
-      - postalCode - represents the streetNbr of the business. Is mandatory
-
-    #### Get the images for a business
-
-    - Method: GET
-    - Endpoint : /api/v1/business/photos/{id}/?is_primary={is_primary}
-    - Parameters:
-      - from req param:
-        - id - is a number and represents the id of the business. This must be a valid id business
-      - from req query:
-        - is_primary - must be 0 or 1; 1 - only the primary image, 0 - for non-primary images. If omited will fetch all images for a business
+### 📷 Get the Images for a Business
+- **Method**: `GET`
+- **Endpoint**: `/api/v1/business/photos/{id}/?is_primary={is_primary}`
+- **Parameters**:
+  - From `req.param`:
+    - `id` (required) - The business ID. Must be a valid ID.
+  - From `req.query`:
+    - `is_primary` (optional) - `1` fetches only the primary image, `0` fetches non-primary images. If omitted, returns all images.
 
 ## 🚀 Future Goals
 
@@ -200,3 +191,4 @@ These are features planned for future implementation:
 | Name               | GitHub Profile                  | Contributions                                                                   |
 | ------------------ | ------------------------------- | ------------------------------------------------------------------------------- |
 | **Vasiliki Korai** | https://github.com/vasiliki0217 | Architected and Developed Backend, API, DB Schema, DB Creation & Authentication |
+| **Adrian** | https://github.com/rotiadi | Added API endpoints for business operations and image uploads |
